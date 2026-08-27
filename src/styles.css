@@ -162,6 +162,7 @@
 .duka-screen {
   position: relative;
   height: min(820px, calc(100dvh - 96px));
+  padding-top: 30px;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 32px;
@@ -213,6 +214,7 @@
 
   .duka-screen {
     height: 100dvh;
+    padding-top: 0;
     border-radius: 0;
   }
 
