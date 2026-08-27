@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as MuuzajiRouteImport } from './routes/muuzaji'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBidhaaIndexRouteImport } from './routes/admin.bidhaa.index'
+import { Route as AdminBidhaaIdRouteImport } from './routes/admin.bidhaa.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,18 +41,25 @@ const AdminBidhaaIndexRoute = AdminBidhaaIndexRouteImport.update({
   path: '/bidhaa/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBidhaaIdRoute = AdminBidhaaIdRouteImport.update({
+  id: '/bidhaa/$id',
+  path: '/bidhaa/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/muuzaji': typeof MuuzajiRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/muuzaji': typeof MuuzajiRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa': typeof AdminBidhaaIndexRoute
 }
 export interface FileRoutesById {
@@ -60,14 +68,28 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/muuzaji': typeof MuuzajiRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/muuzaji' | '/admin/' | '/admin/bidhaa/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/muuzaji'
+    | '/admin/'
+    | '/admin/bidhaa/$id'
+    | '/admin/bidhaa/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/muuzaji' | '/admin' | '/admin/bidhaa'
-  id: '__root__' | '/' | '/admin' | '/muuzaji' | '/admin/' | '/admin/bidhaa/'
+  to: '/' | '/muuzaji' | '/admin' | '/admin/bidhaa/$id' | '/admin/bidhaa'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/muuzaji'
+    | '/admin/'
+    | '/admin/bidhaa/$id'
+    | '/admin/bidhaa/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -113,16 +135,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBidhaaIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/bidhaa/$id': {
+      id: '/admin/bidhaa/$id'
+      path: '/bidhaa/$id'
+      fullPath: '/admin/bidhaa/$id'
+      preLoaderRoute: typeof AdminBidhaaIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminBidhaaIdRoute: typeof AdminBidhaaIdRoute
   AdminBidhaaIndexRoute: typeof AdminBidhaaIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminBidhaaIdRoute: AdminBidhaaIdRoute,
   AdminBidhaaIndexRoute: AdminBidhaaIndexRoute,
 }
 
