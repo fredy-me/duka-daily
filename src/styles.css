@@ -126,3 +126,96 @@
   min-height: 48px;
   min-width: 48px;
 }
+
+/*
+ * Device framing: present the app as a mobile phone inside the browser,
+ * but render full-bleed like a real OS app when opened on an actual phone.
+ *
+ * Defaults (wide desktop browser) = centered phone handset mockup.
+ */
+.duka-device-backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  background-color: #ececec;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.6), transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(0, 0, 0, 0.06), transparent 45%);
+}
+
+.duka-device-bezel {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 44px;
+  padding: 12px;
+  background: linear-gradient(145deg, #1c1c1e, #0a0a0a);
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.45),
+    0 12px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  outline: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.duka-screen {
+  position: relative;
+  height: min(820px, calc(100dvh - 96px));
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 32px;
+  background-color: var(--color-background);
+  /* Optional hidden scrollbar for a clean handset look */
+  scrollbar-width: none;
+}
+
+.duka-screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dynamic-island style camera cutout (desktop mockup only) */
+.duka-notch {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  z-index: 60;
+  width: 110px;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background-color: #0a0a0a;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/*
+ * Real handheld devices (touch + narrow viewport): go full-bleed like a
+ * native app. No bezel, no radius, no notch, no backdrop.
+ */
+@media (pointer: coarse) and (max-width: 767px) {
+  .duka-device-backdrop {
+    display: block;
+    padding: 0;
+    min-height: 100dvh;
+    background: var(--color-background);
+  }
+
+  .duka-device-bezel {
+    max-width: 100%;
+    padding: 0;
+    border-radius: 0;
+    background: var(--color-background);
+    box-shadow: none;
+    outline: none;
+  }
+
+  .duka-screen {
+    height: 100dvh;
+    border-radius: 0;
+  }
+
+  .duka-notch {
+    display: none;
+  }
+}
