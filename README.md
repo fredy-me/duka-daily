@@ -1,7 +1,6 @@
 # Duka Daily
 
-this is mobile 
-
+this is mobile
 
 Build a mobile-first business management app UI/UX prototype called "[App Name — TBD]" for a single-shop Tanzanian duka (daily necessities retailer) run by an Admin/Owner with two Sellers/Cashiers under him. This is UI/UX ONLY — use realistic mock data throughout, no backend logic or real data connections needed. Use React, Tailwind CSS, and shadcn/ui as the foundation, but design every screen mobile-first: single-column, portrait orientation, bottom tab navigation, thumb-reachable primary actions. This is a prototype for demonstration on a phone screen, not a responsive desktop layout.
 
