@@ -73,16 +73,6 @@ Mipangilio (Settings, limited) — Lugha, Akaunti (change PIN), Toka (log out) o
 
 === MOCK DATA === Populate every screen with realistic data for a small Tanzanian duka. Products: sukari, mchele, unga wa ngano, mafuta ya kupikia, sabuni, maharage, chumvi, mkate, soda, biskuti — with realistic small quantities and TZS prices (e.g., "Sukari 2kg — 6,500 TZS"). Currency always formatted as TZS. Supplier names should sound like small Tanzanian wholesalers. Sellers named realistically (e.g., "Juma", "Neema"). Wakala sources: M-Pesa, Tigo Pesa, Airtel Money, Halopesa, each with a plausible monthly commission figure (tens of thousands of TZS range, not millions — this is a small shop's side commission, not its main income).
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8fd64d2b-8842-4753-88b6-5538d6aaf102).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
