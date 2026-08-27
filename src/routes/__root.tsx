@@ -76,7 +76,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Duka Daily - point of sale and inventory management" },
       { name: "author", content: "fredy-me" },
       { property: "og:title", content: "Duka Daily" },
-      { property: "og:description", content: "Duka Daily - point of sale and inventory management" },
+      {
+        property: "og:description",
+        content: "Duka Daily - point of sale and inventory management",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
