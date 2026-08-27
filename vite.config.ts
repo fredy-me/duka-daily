@@ -8,10 +8,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(() => {
   const env = loadEnv(process.env.MODE ?? "development", process.cwd(), "VITE_");
   const envDefine = Object.fromEntries(
-    Object.entries(env).map(([key, value]) => [
-      `import.meta.env.${key}`,
-      JSON.stringify(value),
-    ]),
+    Object.entries(env).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
   );
 
   return {
