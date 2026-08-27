@@ -32,7 +32,7 @@ function Login() {
 
   return (
     <Phone>
-      <div className="flex min-h-screen flex-col justify-between px-6 pt-16 pb-10">
+      <div className="flex min-h-full flex-col justify-between px-6 pt-16 pb-10">
         <div>
           <div className="flex flex-col items-center text-center">
             <div className="flex size-20 items-center justify-center rounded-[26px] border border-border bg-card">
