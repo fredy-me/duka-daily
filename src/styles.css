@@ -147,9 +147,12 @@
 
 .duka-device-bezel {
   position: relative;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 44px;
+  /* Galaxy-style tall smartphone silhouette: ~20:9 screen ratio.
+     width is capped by width AND shrinks to fit short viewports so the
+     phone always keeps its tall, slim shape instead of going squat. */
+  width: min(400px, calc((100dvh - 56px) / 2.22), 100vw - 48px);
+  aspect-ratio: 9 / 20;
+  border-radius: 52px;
   padding: 12px;
   background: linear-gradient(145deg, #1c1c1e, #0a0a0a);
   box-shadow:
@@ -161,11 +164,11 @@
 
 .duka-screen {
   position: relative;
-  height: min(820px, calc(100dvh - 96px));
-  padding-top: 30px;
+  height: 100%;
+  padding-top: 34px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-radius: 32px;
+  border-radius: 42px;
   background-color: var(--color-background);
   /* Optional hidden scrollbar for a clean handset look */
   scrollbar-width: none;
@@ -175,18 +178,18 @@
   display: none;
 }
 
-/* Dynamic-island style camera cutout (desktop mockup only) */
+/* Centered punch-hole style camera cutout (desktop mockup only) */
 .duka-notch {
   position: absolute;
-  top: 24px;
+  top: 26px;
   left: 50%;
   z-index: 60;
-  width: 110px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   transform: translateX(-50%);
   border-radius: 9999px;
-  background-color: #0a0a0a;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  background-color: #050505;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
   pointer-events: none;
 }
 
@@ -203,6 +206,8 @@
   }
 
   .duka-device-bezel {
+    width: 100%;
+    aspect-ratio: auto;
     max-width: 100%;
     padding: 0;
     border-radius: 0;
