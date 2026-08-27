@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export function Phone({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-full w-full max-w-[430px] flex-col bg-background pb-28">
+    <div className="mx-auto flex min-h-full w-full max-w-[430px] flex-col bg-background">
       {children}
     </div>
   );
@@ -159,7 +159,7 @@ export type Tab = { to: string; label: string; icon: ReactNode };
 export function TabBar({ tabs }: { tabs: Tab[] }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <nav className="fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">
+    <nav className="sticky bottom-0 z-30 mt-auto w-full border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">
       <ul className="flex">
         {tabs.map((t) => {
           const active = t.to === pathname || (t.to !== "/" && pathname.startsWith(t.to + "/"));
