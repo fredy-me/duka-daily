@@ -166,6 +166,7 @@
   overflow-x: hidden;
   border-radius: 32px;
   background-color: var(--color-background);
+  transform: translateZ(0);
   /* Optional hidden scrollbar for a clean handset look */
   scrollbar-width: none;
 }
