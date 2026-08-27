@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type UserConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -6,12 +6,12 @@ import { nitro } from "nitro/vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig(() => {
-  const env = loadEnv(process.env.MODE ?? "development", process.cwd(), "VITE_");
+  const env = loadEnv(process.env["MODE"] ?? "development", process.cwd(), "VITE_");
   const envDefine = Object.fromEntries(
     Object.entries(env).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
   );
 
-  return {
+  const config: UserConfig = {
     define: envDefine,
     css: { transformer: "lightningcss" },
     resolve: {
@@ -56,4 +56,5 @@ export default defineConfig(() => {
       tsConfigPaths({ projects: ["./tsconfig.json"] }),
     ],
   };
+  return config;
 });
