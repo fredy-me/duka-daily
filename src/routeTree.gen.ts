@@ -10,33 +10,121 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as MuuzajiRouteImport } from './routes/muuzaji'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminMauzoRouteImport } from './routes/admin.mauzo'
+import { Route as AdminRipotiRouteImport } from './routes/admin.ripoti'
+import { Route as AdminBidhaaIndexRouteImport } from './routes/admin.bidhaa.index'
+import { Route as AdminBidhaaIdRouteImport } from './routes/admin.bidhaa.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MuuzajiRoute = MuuzajiRouteImport.update({
+  id: '/muuzaji',
+  path: '/muuzaji',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMauzoRoute = AdminMauzoRouteImport.update({
+  id: '/mauzo',
+  path: '/mauzo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRipotiRoute = AdminRipotiRouteImport.update({
+  id: '/ripoti',
+  path: '/ripoti',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBidhaaIndexRoute = AdminBidhaaIndexRouteImport.update({
+  id: '/bidhaa/',
+  path: '/bidhaa/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBidhaaIdRoute = AdminBidhaaIdRouteImport.update({
+  id: '/bidhaa/$id',
+  path: '/bidhaa/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/muuzaji': typeof MuuzajiRoute
+  '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
+  '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/muuzaji': typeof MuuzajiRoute
+  '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
+  '/admin/bidhaa': typeof AdminBidhaaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/muuzaji': typeof MuuzajiRoute
+  '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
+  '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/muuzaji'
+    | '/admin/mauzo'
+    | '/admin/ripoti'
+    | '/admin/'
+    | '/admin/bidhaa/$id'
+    | '/admin/bidhaa/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/muuzaji'
+    | '/admin/mauzo'
+    | '/admin/ripoti'
+    | '/admin'
+    | '/admin/bidhaa/$id'
+    | '/admin/bidhaa'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/muuzaji'
+    | '/admin/mauzo'
+    | '/admin/ripoti'
+    | '/admin/'
+    | '/admin/bidhaa/$id'
+    | '/admin/bidhaa/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  MuuzajiRoute: typeof MuuzajiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +136,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/muuzaji': {
+      id: '/muuzaji'
+      path: '/muuzaji'
+      fullPath: '/muuzaji'
+      preLoaderRoute: typeof MuuzajiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/mauzo': {
+      id: '/admin/mauzo'
+      path: '/mauzo'
+      fullPath: '/admin/mauzo'
+      preLoaderRoute: typeof AdminMauzoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/ripoti': {
+      id: '/admin/ripoti'
+      path: '/ripoti'
+      fullPath: '/admin/ripoti'
+      preLoaderRoute: typeof AdminRipotiRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/bidhaa/': {
+      id: '/admin/bidhaa/'
+      path: '/bidhaa'
+      fullPath: '/admin/bidhaa/'
+      preLoaderRoute: typeof AdminBidhaaIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/bidhaa/$id': {
+      id: '/admin/bidhaa/$id'
+      path: '/bidhaa/$id'
+      fullPath: '/admin/bidhaa/$id'
+      preLoaderRoute: typeof AdminBidhaaIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminMauzoRoute: typeof AdminMauzoRoute
+  AdminRipotiRoute: typeof AdminRipotiRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminBidhaaIdRoute: typeof AdminBidhaaIdRoute
+  AdminBidhaaIndexRoute: typeof AdminBidhaaIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminMauzoRoute: AdminMauzoRoute,
+  AdminRipotiRoute: AdminRipotiRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminBidhaaIdRoute: AdminBidhaaIdRoute,
+  AdminBidhaaIndexRoute: AdminBidhaaIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  MuuzajiRoute: MuuzajiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
