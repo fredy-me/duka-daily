@@ -14,8 +14,8 @@ export function PageHeader({
   back,
 }: {
   title: string;
-  subtitle?: string;
-  back?: string;
+  subtitle?: string | undefined;
+  back?: string | undefined;
 }) {
   return (
     <header className="sticky top-0 z-20 bg-background/90 px-5 pt-6 pb-4 backdrop-blur-md">
@@ -38,9 +38,9 @@ export function Section({
   children,
   action,
 }: {
-  title?: string;
+  title?: string | undefined;
   children: ReactNode;
-  action?: ReactNode;
+  action?: ReactNode | undefined;
 }) {
   return (
     <section className="px-5 py-3">
@@ -61,8 +61,8 @@ export function Panel({
   accent,
 }: {
   children: ReactNode;
-  className?: string;
-  accent?: boolean;
+  className?: string | undefined;
+  accent?: boolean | undefined;
 }) {
   return (
     <div
@@ -85,8 +85,8 @@ export function StatCard({
 }: {
   label: string;
   value: string;
-  hint?: string;
-  accent?: boolean;
+  hint?: string | undefined;
+  accent?: boolean | undefined;
 }) {
   return (
     <Panel accent={accent} className="p-5">
@@ -109,7 +109,7 @@ export function Row({
   className,
 }: {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <div
@@ -136,7 +136,7 @@ export function Pill({
   tone = "muted",
 }: {
   children: ReactNode;
-  tone?: "muted" | "accent" | "dark";
+  tone?: "muted" | "accent" | "dark" | undefined;
 }) {
   return (
     <span
