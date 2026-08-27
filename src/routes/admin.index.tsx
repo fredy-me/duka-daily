@@ -17,7 +17,10 @@ export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
       { title: "Mwanzo — Duka Langu" },
-      { name: "description", content: "Muhtasari wa salio, hisa na mauzo ya leo katika duka lako." },
+      {
+        name: "description",
+        content: "Muhtasari wa salio, hisa na mauzo ya leo katika duka lako.",
+      },
       { property: "og:title", content: "Mwanzo — Duka Langu" },
       { property: "og:description", content: "Muhtasari wa salio, hisa na mauzo ya leo." },
     ],
@@ -33,8 +36,16 @@ function Dashboard() {
       <Section>
         <div className="grid grid-cols-2 gap-4">
           <StatCard label="Salio la Kuanza" value={fmt(openingBalance)} />
-          <StatCard label="Jumla ya Bidhaa Zilizopo" value={`${stockCount}`} hint={fmt(stockValue)} />
-          <StatCard label="Mauzo ya Leo" value={fmt(todayTotal)} hint={`${todaySales.length} mauzo`} />
+          <StatCard
+            label="Jumla ya Bidhaa Zilizopo"
+            value={`${stockCount}`}
+            hint={fmt(stockValue)}
+          />
+          <StatCard
+            label="Mauzo ya Leo"
+            value={fmt(todayTotal)}
+            hint={`${todaySales.length} mauzo`}
+          />
           <StatCard
             label="Salio la Kufunga linalotarajiwa"
             value={fmt(closingEstimate)}
