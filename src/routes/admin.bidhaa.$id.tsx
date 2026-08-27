@@ -6,7 +6,10 @@ export const Route = createFileRoute("/admin/bidhaa/$id")({
   head: () => ({
     meta: [
       { title: "Historia ya Bidhaa — Duka Langu" },
-      { name: "description", content: "Historia ya usajili, nyongeza za hisa na mabadiliko ya bei." },
+      {
+        name: "description",
+        content: "Historia ya usajili, nyongeza za hisa na mabadiliko ya bei.",
+      },
       { property: "og:title", content: "Historia ya Bidhaa — Duka Langu" },
       { property: "og:description", content: "Usajili, nyongeza za hisa na mabadiliko ya bei." },
     ],
