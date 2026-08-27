@@ -147,13 +147,11 @@
 
 .duka-device-bezel {
   position: relative;
-  /* Galaxy-style tall smartphone silhouette: ~20:9 screen ratio.
-     width is capped by width AND shrinks to fit short viewports so the
-     phone always keeps its tall, slim shape instead of going squat. */
-  width: min(400px, calc((100dvh - 56px) / 2.22), 100vw - 48px);
-  aspect-ratio: 9 / 20;
-  border-radius: 52px;
-  padding: 12px;
+  display: flex;
+  width: min(400px, 100vw - 48px);
+  max-height: calc(100dvh - 48px);
+  border-radius: 48px;
+  padding: 10px;
   background: linear-gradient(145deg, #1c1c1e, #0a0a0a);
   box-shadow:
     0 40px 90px rgba(0, 0, 0, 0.45),
@@ -164,11 +162,13 @@
 
 .duka-screen {
   position: relative;
-  height: 100%;
-  padding-top: 34px;
+  flex: 0 1 auto;
+  height: auto;
+  max-height: calc(100dvh - 68px);
+  padding-top: 30px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-radius: 42px;
+  border-radius: 40px;
   background-color: var(--color-background);
   /* Optional hidden scrollbar for a clean handset look */
   scrollbar-width: none;
@@ -206,8 +206,9 @@
   }
 
   .duka-device-bezel {
+    display: block;
     width: 100%;
-    aspect-ratio: auto;
+    max-height: none;
     max-width: 100%;
     padding: 0;
     border-radius: 0;
@@ -218,6 +219,7 @@
 
   .duka-screen {
     height: 100dvh;
+    max-height: none;
     padding-top: env(safe-area-inset-top);
     border-radius: 0;
   }
