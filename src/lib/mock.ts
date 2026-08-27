@@ -88,7 +88,9 @@ export const products: Product[] = [
     price: 1500,
     buyPrice: 1150,
     registered: "12 Jan 2026",
-    events: [{ date: "12 Jan 2026", type: "usajili", note: "Ilisajiliwa · 60 vipande · 1,500 TZS" }],
+    events: [
+      { date: "12 Jan 2026", type: "usajili", note: "Ilisajiliwa · 60 vipande · 1,500 TZS" },
+    ],
   },
   {
     id: "maharage",
