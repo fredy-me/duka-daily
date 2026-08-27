@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as MuuzajiRouteImport } from './routes/muuzaji'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminMauzoRouteImport } from './routes/admin.mauzo'
+import { Route as AdminRipotiRouteImport } from './routes/admin.ripoti'
 import { Route as AdminBidhaaIndexRouteImport } from './routes/admin.bidhaa.index'
 import { Route as AdminBidhaaIdRouteImport } from './routes/admin.bidhaa.$id'
 
@@ -42,6 +43,11 @@ const AdminMauzoRoute = AdminMauzoRouteImport.update({
   path: '/mauzo',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminRipotiRoute = AdminRipotiRouteImport.update({
+  id: '/ripoti',
+  path: '/ripoti',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBidhaaIndexRoute = AdminBidhaaIndexRouteImport.update({
   id: '/bidhaa/',
   path: '/bidhaa/',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/muuzaji': typeof MuuzajiRoute
   '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/muuzaji': typeof MuuzajiRoute
   '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
   '/admin': typeof AdminIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa': typeof AdminBidhaaIndexRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/muuzaji': typeof MuuzajiRoute
   '/admin/mauzo': typeof AdminMauzoRoute
+  '/admin/ripoti': typeof AdminRipotiRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/muuzaji'
     | '/admin/mauzo'
+    | '/admin/ripoti'
     | '/admin/'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa/'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/muuzaji'
     | '/admin/mauzo'
+    | '/admin/ripoti'
     | '/admin'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/muuzaji'
     | '/admin/mauzo'
+    | '/admin/ripoti'
     | '/admin/'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa/'
@@ -152,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMauzoRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/ripoti': {
+      id: '/admin/ripoti'
+      path: '/ripoti'
+      fullPath: '/admin/ripoti'
+      preLoaderRoute: typeof AdminRipotiRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bidhaa/': {
       id: '/admin/bidhaa/'
       path: '/bidhaa'
@@ -171,6 +190,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminMauzoRoute: typeof AdminMauzoRoute
+  AdminRipotiRoute: typeof AdminRipotiRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminBidhaaIdRoute: typeof AdminBidhaaIdRoute
   AdminBidhaaIndexRoute: typeof AdminBidhaaIndexRoute
@@ -178,6 +198,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminMauzoRoute: AdminMauzoRoute,
+  AdminRipotiRoute: AdminRipotiRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminBidhaaIdRoute: AdminBidhaaIdRoute,
   AdminBidhaaIndexRoute: AdminBidhaaIndexRoute,
