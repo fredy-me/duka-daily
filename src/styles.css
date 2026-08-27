@@ -214,7 +214,7 @@
 
   .duka-screen {
     height: 100dvh;
-    padding-top: 0;
+    padding-top: env(safe-area-inset-top);
     border-radius: 0;
   }
 
