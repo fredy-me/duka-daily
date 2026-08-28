@@ -1,5 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { Pencil, Trash2 } from "lucide-react";
+import { PackagePlus, Pencil, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,6 +36,13 @@ function ProductDetail() {
 
   const headerAction = (
     <>
+      <button
+        onClick={() => router.navigate({ to: "/admin/bidhaa/$id/Ongeza", params: { id: p.id } })}
+        aria-label="Ongeza hisa"
+        className="tap flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-foreground/20 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
+      >
+        <PackagePlus className="size-5" strokeWidth={1.75} />
+      </button>
       <button
         onClick={() => router.navigate({ to: "/admin/bidhaa/$id/Hariri", params: { id: p.id } })}
         aria-label="Hariri bidhaa"
