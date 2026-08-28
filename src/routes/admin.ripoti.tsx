@@ -1,8 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import type { DateRange } from "react-day-picker";
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PageHeader, Section, Panel, StatCard, ListCard, Row } from "@/components/duka/shell";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Calendar } from "@/components/ui/calendar";
+import { PageHeader, Section, Panel, StatCard, ListCard, Row, Pill } from "@/components/duka/shell";
 import { expenses, expensesTotal, fmt, products, todayTotal, weekTrend } from "@/lib/mock";
 
 export const Route = createFileRoute("/admin/ripoti")({
