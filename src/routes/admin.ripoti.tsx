@@ -232,6 +232,80 @@ function Reports() {
           </TabsContent>
         </Tabs>
       </Section>
+
+      <Dialog open={pickOpen} onOpenChange={setPickOpen}>
+        <DialogContent className="max-w-[540px]">
+          <DialogHeader>
+            <DialogTitle className="text-[20px] font-bold">Chagua Kipindi</DialogTitle>
+            <DialogDescription className="text-[15px]">
+              Chagua siku moja au muda kati ya tarehe mbili.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => setMode("single")}
+              className={`tap flex-1 rounded-full border px-4 py-2 text-[15px] font-semibold transition-[background-color,border-color] duration-150 ${
+                mode === "single"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-muted-foreground"
+              }`}
+            >
+              Siku Moja
+            </button>
+            <button
+              onClick={() => setMode("range")}
+              className={`tap flex-1 rounded-full border px-4 py-2 text-[15px] font-semibold transition-[background-color,border-color] duration-150 ${
+                mode === "range"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-muted-foreground"
+              }`}
+            >
+              Muda (Kuanzia–Mpaka)
+            </button>
+          </div>
+
+          <div className="flex justify-center">
+            {mode === "single" ? (
+              <Calendar mode="single" selected={day} onSelect={setDay} required />
+            ) : (
+              <Calendar mode="range" selected={rangeDates} onSelect={onRangeSelected} />
+            )}
+          </div>
+
+          <div className="flex items-center justify-between rounded-[22px] border border-border bg-total-soft px-4 py-3">
+            <p className="text-[15px] font-bold text-total">
+              {mode === "single"
+                ? day
+                  ? fmtDate(day)
+                  : "Sijachagua"
+                : rangeDates?.from && rangeDates?.to
+                  ? `${fmtDate(rangeDates.from)} – ${fmtDate(rangeDates.to)}`
+                  : "Sijachagua"}
+            </p>
+            <Pill tone="accent">{mode === "single" ? "Siku 1" : "Muda"}</Pill>
+          </div>
+
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => setPickOpen(false)}
+              className="tap flex-1 rounded-xl text-[17px]"
+            >
+              Ghairi
+            </Button>
+            <Button
+              onClick={apply}
+              disabled={
+                mode === "single" ? !day : !(rangeDates?.from && rangeDates?.to)
+              }
+              className="tap flex-1 rounded-xl text-[17px]"
+            >
+              Tumia
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
