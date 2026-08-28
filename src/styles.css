@@ -164,6 +164,8 @@
 
 .duka-screen {
   position: relative;
+  align-self: stretch;
+  width: 100%;
   min-height: 0;
   flex: 0 1 auto;
   /* Definite height: longer phone (min 760px), capped so it never overflows
