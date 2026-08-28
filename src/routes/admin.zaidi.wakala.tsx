@@ -178,7 +178,7 @@ function WakalaPage() {
                     className="tap flex-1 rounded-xl border-total/25 bg-total-soft text-total hover:bg-total/10"
                     onClick={() => openCommission(a.id, a.name, r.commission)}
                   >
-                    Rekodi Tume
+                    Andika Commission
                   </Button>
                 </div>
               </Panel>
@@ -225,7 +225,7 @@ function WakalaPage() {
       <NumericDialog
         open={!!edit && edit.type === "commission"}
         onClose={() => setEdit(null)}
-        title="Rekodi Tume"
+        title="Andika Commission"
         label={edit ? `${edit.agentName} · tume ya ${currentMonth}` : ""}
         value={edit?.type === "commission" ? edit.value : ""}
         onChange={(v) => setEdit((s) => (s ? { ...s, value: v } : s))}
