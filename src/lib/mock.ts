@@ -366,7 +366,15 @@ export const handovers = [
   },
 ];
 
-export const users = [
+export type User = {
+  id: string;
+  name: string;
+  phone: string;
+  role: "Admin" | "Muuzaji";
+  status?: "Ametumwa" | "Amekubali" | undefined;
+};
+
+export const users: User[] = [
   { id: "u1", name: "Dr. Godfrey", phone: "0754 112 233", role: "Admin" },
   { id: "u2", name: "Juma", phone: "0765 445 128", role: "Muuzaji" },
   { id: "u3", name: "Neema", phone: "0712 908 340", role: "Muuzaji" },
