@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Search, ShoppingBag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { PageHeader, Section, Panel, Pill } from "@/components/duka/shell";
-import { fmt, products } from "@/lib/mock";
+import { fmt } from "@/lib/mock";
+import { useProducts } from "@/lib/store";
 
 export const Route = createFileRoute("/muuzaji/")({
   head: () => ({
@@ -25,6 +26,7 @@ type CartItem = { id: string; name: string; price: number; qty: number };
 function SellPage() {
   const [q, setQ] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
+  const products = useProducts();
 
   const list = products.filter((p) => p.name.toLowerCase().includes(q.toLowerCase()));
 
