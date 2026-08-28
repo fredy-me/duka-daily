@@ -22,6 +22,8 @@ import { Route as MuuzajiMipangilioRouteImport } from './routes/muuzaji.mipangil
 import { Route as AdminBidhaaIndexRouteImport } from './routes/admin.bidhaa.index'
 import { Route as AdminBidhaaIdRouteImport } from './routes/admin.bidhaa.$id'
 import { Route as AdminBidhaaOngezaRouteImport } from './routes/admin.bidhaa.ongeza'
+import { Route as AdminZaidiBajetiRouteImport } from './routes/admin.zaidi.bajeti'
+import { Route as AdminZaidiMatumiziRouteImport } from './routes/admin.zaidi.matumizi'
 import { Route as AdminBidhaaIdHaririRouteImport } from './routes/admin.bidhaa.$id.Hariri'
 import { Route as AdminBidhaaIdOngezaRouteImport } from './routes/admin.bidhaa.$id.Ongeza'
 
@@ -90,6 +92,16 @@ const AdminBidhaaOngezaRoute = AdminBidhaaOngezaRouteImport.update({
   path: '/bidhaa/ongeza',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminZaidiBajetiRoute = AdminZaidiBajetiRouteImport.update({
+  id: '/bajeti',
+  path: '/bajeti',
+  getParentRoute: () => AdminZaidiRoute,
+} as any)
+const AdminZaidiMatumiziRoute = AdminZaidiMatumiziRouteImport.update({
+  id: '/matumizi',
+  path: '/matumizi',
+  getParentRoute: () => AdminZaidiRoute,
+} as any)
 const AdminBidhaaIdHaririRoute = AdminBidhaaIdHaririRouteImport.update({
   id: '/Hariri',
   path: '/Hariri',
@@ -107,13 +119,15 @@ export interface FileRoutesByFullPath {
   '/muuzaji': typeof MuuzajiRouteWithChildren
   '/admin/mauzo': typeof AdminMauzoRoute
   '/admin/ripoti': typeof AdminRipotiRoute
-  '/admin/zaidi': typeof AdminZaidiRoute
+  '/admin/zaidi': typeof AdminZaidiRouteWithChildren
   '/muuzaji/mauzo': typeof MuuzajiMauzoRoute
   '/muuzaji/mipangilio': typeof MuuzajiMipangilioRoute
   '/admin/': typeof AdminIndexRoute
   '/muuzaji/': typeof MuuzajiIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRouteWithChildren
   '/admin/bidhaa/ongeza': typeof AdminBidhaaOngezaRoute
+  '/admin/zaidi/bajeti': typeof AdminZaidiBajetiRoute
+  '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
   '/admin/bidhaa/$id/Hariri': typeof AdminBidhaaIdHaririRoute
   '/admin/bidhaa/$id/Ongeza': typeof AdminBidhaaIdOngezaRoute
@@ -122,13 +136,15 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/mauzo': typeof AdminMauzoRoute
   '/admin/ripoti': typeof AdminRipotiRoute
-  '/admin/zaidi': typeof AdminZaidiRoute
+  '/admin/zaidi': typeof AdminZaidiRouteWithChildren
   '/muuzaji/mauzo': typeof MuuzajiMauzoRoute
   '/muuzaji/mipangilio': typeof MuuzajiMipangilioRoute
   '/admin': typeof AdminIndexRoute
   '/muuzaji': typeof MuuzajiIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRouteWithChildren
   '/admin/bidhaa/ongeza': typeof AdminBidhaaOngezaRoute
+  '/admin/zaidi/bajeti': typeof AdminZaidiBajetiRoute
+  '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
   '/admin/bidhaa': typeof AdminBidhaaIndexRoute
   '/admin/bidhaa/$id/Hariri': typeof AdminBidhaaIdHaririRoute
   '/admin/bidhaa/$id/Ongeza': typeof AdminBidhaaIdOngezaRoute
@@ -140,13 +156,15 @@ export interface FileRoutesById {
   '/muuzaji': typeof MuuzajiRouteWithChildren
   '/admin/mauzo': typeof AdminMauzoRoute
   '/admin/ripoti': typeof AdminRipotiRoute
-  '/admin/zaidi': typeof AdminZaidiRoute
+  '/admin/zaidi': typeof AdminZaidiRouteWithChildren
   '/muuzaji/mauzo': typeof MuuzajiMauzoRoute
   '/muuzaji/mipangilio': typeof MuuzajiMipangilioRoute
   '/admin/': typeof AdminIndexRoute
   '/muuzaji/': typeof MuuzajiIndexRoute
   '/admin/bidhaa/$id': typeof AdminBidhaaIdRouteWithChildren
   '/admin/bidhaa/ongeza': typeof AdminBidhaaOngezaRoute
+  '/admin/zaidi/bajeti': typeof AdminZaidiBajetiRoute
+  '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
   '/admin/bidhaa/': typeof AdminBidhaaIndexRoute
   '/admin/bidhaa/$id/Hariri': typeof AdminBidhaaIdHaririRoute
   '/admin/bidhaa/$id/Ongeza': typeof AdminBidhaaIdOngezaRoute
@@ -166,6 +184,8 @@ export interface FileRouteTypes {
     | '/muuzaji/'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa/ongeza'
+    | '/admin/zaidi/bajeti'
+    | '/admin/zaidi/matumizi'
     | '/admin/bidhaa/'
     | '/admin/bidhaa/$id/Hariri'
     | '/admin/bidhaa/$id/Ongeza'
@@ -181,6 +201,8 @@ export interface FileRouteTypes {
     | '/muuzaji'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa/ongeza'
+    | '/admin/zaidi/bajeti'
+    | '/admin/zaidi/matumizi'
     | '/admin/bidhaa'
     | '/admin/bidhaa/$id/Hariri'
     | '/admin/bidhaa/$id/Ongeza'
@@ -198,6 +220,8 @@ export interface FileRouteTypes {
     | '/muuzaji/'
     | '/admin/bidhaa/$id'
     | '/admin/bidhaa/ongeza'
+    | '/admin/zaidi/bajeti'
+    | '/admin/zaidi/matumizi'
     | '/admin/bidhaa/'
     | '/admin/bidhaa/$id/Hariri'
     | '/admin/bidhaa/$id/Ongeza'
@@ -302,6 +326,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBidhaaOngezaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/zaidi/bajeti': {
+      id: '/admin/zaidi/bajeti'
+      path: '/bajeti'
+      fullPath: '/admin/zaidi/bajeti'
+      preLoaderRoute: typeof AdminZaidiBajetiRouteImport
+      parentRoute: typeof AdminZaidiRoute
+    }
+    '/admin/zaidi/matumizi': {
+      id: '/admin/zaidi/matumizi'
+      path: '/matumizi'
+      fullPath: '/admin/zaidi/matumizi'
+      preLoaderRoute: typeof AdminZaidiMatumiziRouteImport
+      parentRoute: typeof AdminZaidiRoute
+    }
     '/admin/bidhaa/$id/Hariri': {
       id: '/admin/bidhaa/$id/Hariri'
       path: '/Hariri'
@@ -318,6 +356,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AdminZaidiRouteChildren {
+  AdminZaidiBajetiRoute: typeof AdminZaidiBajetiRoute
+  AdminZaidiMatumiziRoute: typeof AdminZaidiMatumiziRoute
+}
+
+const AdminZaidiRouteChildren: AdminZaidiRouteChildren = {
+  AdminZaidiBajetiRoute: AdminZaidiBajetiRoute,
+  AdminZaidiMatumiziRoute: AdminZaidiMatumiziRoute,
+}
+
+const AdminZaidiRouteWithChildren = AdminZaidiRoute._addFileChildren(
+  AdminZaidiRouteChildren,
+)
 
 interface AdminBidhaaIdRouteChildren {
   AdminBidhaaIdHaririRoute: typeof AdminBidhaaIdHaririRoute
@@ -336,7 +388,7 @@ const AdminBidhaaIdRouteWithChildren = AdminBidhaaIdRoute._addFileChildren(
 interface AdminRouteChildren {
   AdminMauzoRoute: typeof AdminMauzoRoute
   AdminRipotiRoute: typeof AdminRipotiRoute
-  AdminZaidiRoute: typeof AdminZaidiRoute
+  AdminZaidiRoute: typeof AdminZaidiRouteWithChildren
   AdminIndexRoute: typeof AdminIndexRoute
   AdminBidhaaIdRoute: typeof AdminBidhaaIdRouteWithChildren
   AdminBidhaaOngezaRoute: typeof AdminBidhaaOngezaRoute
@@ -346,7 +398,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminMauzoRoute: AdminMauzoRoute,
   AdminRipotiRoute: AdminRipotiRoute,
-  AdminZaidiRoute: AdminZaidiRoute,
+  AdminZaidiRoute: AdminZaidiRouteWithChildren,
   AdminIndexRoute: AdminIndexRoute,
   AdminBidhaaIdRoute: AdminBidhaaIdRouteWithChildren,
   AdminBidhaaOngezaRoute: AdminBidhaaOngezaRoute,
