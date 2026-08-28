@@ -65,7 +65,7 @@ function SellPage() {
             <button
               key={p.id}
               onClick={() => add(p.id)}
-              className="tap rounded-[22px] border border-border bg-card p-5 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+              className="tap rounded-[22px] border border-border bg-card p-5 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow,transform] duration-150 hover:border-foreground/20 hover:shadow-[0_5px_14px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
             >
               <p className="text-[16px] font-semibold">{p.name}</p>
               <p className="mt-1 text-[16px] font-bold">{fmt(p.price)}</p>
@@ -100,7 +100,7 @@ function SellPage() {
               </div>
             ))}
           </Panel>
-          <div className="mt-4 flex items-center justify-between rounded-[22px] bg-primary px-5 py-4 text-primary-foreground">
+          <div className="mt-4 flex items-center justify-between rounded-[22px] border border-primary bg-primary px-5 py-4 text-primary-foreground shadow-[0_2px_8px_rgba(0,0,0,0.14)]">
             <div className="flex items-center gap-2">
               <ShoppingBag className="size-6" strokeWidth={1.5} />
               <p className="text-[15px]">Kamilisha Mauzo</p>
