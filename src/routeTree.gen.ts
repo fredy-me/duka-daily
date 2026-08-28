@@ -26,6 +26,7 @@ import { Route as AdminZaidiBajetiRouteImport } from './routes/admin.zaidi.bajet
 import { Route as AdminZaidiMakabidhianoRouteImport } from './routes/admin.zaidi.makabidhiano'
 import { Route as AdminZaidiMarekebishoRouteImport } from './routes/admin.zaidi.marekebisho'
 import { Route as AdminZaidiMatumiziRouteImport } from './routes/admin.zaidi.matumizi'
+import { Route as AdminZaidiMpangilioRouteImport } from './routes/admin.zaidi.mpangilio'
 import { Route as AdminZaidiStoreRouteImport } from './routes/admin.zaidi.store'
 import { Route as AdminZaidiWakalaRouteImport } from './routes/admin.zaidi.wakala'
 import { Route as AdminZaidiWatumiajiRouteImport } from './routes/admin.zaidi.watumiaji'
@@ -117,6 +118,11 @@ const AdminZaidiMatumiziRoute = AdminZaidiMatumiziRouteImport.update({
   path: '/matumizi',
   getParentRoute: () => AdminZaidiRoute,
 } as any)
+const AdminZaidiMpangilioRoute = AdminZaidiMpangilioRouteImport.update({
+  id: '/mpangilio',
+  path: '/mpangilio',
+  getParentRoute: () => AdminZaidiRoute,
+} as any)
 const AdminZaidiStoreRoute = AdminZaidiStoreRouteImport.update({
   id: '/store',
   path: '/store',
@@ -160,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/admin/zaidi/makabidhiano': typeof AdminZaidiMakabidhianoRoute
   '/admin/zaidi/marekebisho': typeof AdminZaidiMarekebishoRoute
   '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
+  '/admin/zaidi/mpangilio': typeof AdminZaidiMpangilioRoute
   '/admin/zaidi/store': typeof AdminZaidiStoreRoute
   '/admin/zaidi/wakala': typeof AdminZaidiWakalaRoute
   '/admin/zaidi/watumiaji': typeof AdminZaidiWatumiajiRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/admin/zaidi/makabidhiano': typeof AdminZaidiMakabidhianoRoute
   '/admin/zaidi/marekebisho': typeof AdminZaidiMarekebishoRoute
   '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
+  '/admin/zaidi/mpangilio': typeof AdminZaidiMpangilioRoute
   '/admin/zaidi/store': typeof AdminZaidiStoreRoute
   '/admin/zaidi/wakala': typeof AdminZaidiWakalaRoute
   '/admin/zaidi/watumiaji': typeof AdminZaidiWatumiajiRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/admin/zaidi/makabidhiano': typeof AdminZaidiMakabidhianoRoute
   '/admin/zaidi/marekebisho': typeof AdminZaidiMarekebishoRoute
   '/admin/zaidi/matumizi': typeof AdminZaidiMatumiziRoute
+  '/admin/zaidi/mpangilio': typeof AdminZaidiMpangilioRoute
   '/admin/zaidi/store': typeof AdminZaidiStoreRoute
   '/admin/zaidi/wakala': typeof AdminZaidiWakalaRoute
   '/admin/zaidi/watumiaji': typeof AdminZaidiWatumiajiRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/admin/zaidi/makabidhiano'
     | '/admin/zaidi/marekebisho'
     | '/admin/zaidi/matumizi'
+    | '/admin/zaidi/mpangilio'
     | '/admin/zaidi/store'
     | '/admin/zaidi/wakala'
     | '/admin/zaidi/watumiaji'
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/admin/zaidi/makabidhiano'
     | '/admin/zaidi/marekebisho'
     | '/admin/zaidi/matumizi'
+    | '/admin/zaidi/mpangilio'
     | '/admin/zaidi/store'
     | '/admin/zaidi/wakala'
     | '/admin/zaidi/watumiaji'
@@ -279,6 +290,7 @@ export interface FileRouteTypes {
     | '/admin/zaidi/makabidhiano'
     | '/admin/zaidi/marekebisho'
     | '/admin/zaidi/matumizi'
+    | '/admin/zaidi/mpangilio'
     | '/admin/zaidi/store'
     | '/admin/zaidi/wakala'
     | '/admin/zaidi/watumiaji'
@@ -414,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminZaidiMatumiziRouteImport
       parentRoute: typeof AdminZaidiRoute
     }
+    '/admin/zaidi/mpangilio': {
+      id: '/admin/zaidi/mpangilio'
+      path: '/mpangilio'
+      fullPath: '/admin/zaidi/mpangilio'
+      preLoaderRoute: typeof AdminZaidiMpangilioRouteImport
+      parentRoute: typeof AdminZaidiRoute
+    }
     '/admin/zaidi/store': {
       id: '/admin/zaidi/store'
       path: '/store'
@@ -457,6 +476,7 @@ interface AdminZaidiRouteChildren {
   AdminZaidiMakabidhianoRoute: typeof AdminZaidiMakabidhianoRoute
   AdminZaidiMarekebishoRoute: typeof AdminZaidiMarekebishoRoute
   AdminZaidiMatumiziRoute: typeof AdminZaidiMatumiziRoute
+  AdminZaidiMpangilioRoute: typeof AdminZaidiMpangilioRoute
   AdminZaidiStoreRoute: typeof AdminZaidiStoreRoute
   AdminZaidiWakalaRoute: typeof AdminZaidiWakalaRoute
   AdminZaidiWatumiajiRoute: typeof AdminZaidiWatumiajiRoute
@@ -467,6 +487,7 @@ const AdminZaidiRouteChildren: AdminZaidiRouteChildren = {
   AdminZaidiMakabidhianoRoute: AdminZaidiMakabidhianoRoute,
   AdminZaidiMarekebishoRoute: AdminZaidiMarekebishoRoute,
   AdminZaidiMatumiziRoute: AdminZaidiMatumiziRoute,
+  AdminZaidiMpangilioRoute: AdminZaidiMpangilioRoute,
   AdminZaidiStoreRoute: AdminZaidiStoreRoute,
   AdminZaidiWakalaRoute: AdminZaidiWakalaRoute,
   AdminZaidiWatumiajiRoute: AdminZaidiWatumiajiRoute,
