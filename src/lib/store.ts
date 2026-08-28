@@ -3,8 +3,10 @@ import {
   products as initialProducts,
   stocktaking as initialStocktaking,
   expenses as initialBudget,
+  wakalaMonths as initialWakalaMonths,
   type Product,
   type StocktakingItem,
+  type WakalaMonth,
 } from "./mock";
 
 let products: Product[] = [...initialProducts];
@@ -116,5 +118,41 @@ export function updateBudgetCategory(id: string, patch: Partial<BudgetCategory>)
 
 export function deleteBudgetCategory(id: string) {
   budgetCategories = budgetCategories.filter((b) => b.id !== id);
+  emit();
+}
+
+let wakalaMonths: WakalaMonth[] = [...initialWakalaMonths];
+
+function getWakalaSnapshot(): WakalaMonth[] {
+  return wakalaMonths;
+}
+
+export function useWakala(): WakalaMonth[] {
+  return useSyncExternalStore(subscribe, getWakalaSnapshot, getWakalaSnapshot);
+}
+
+export function setWakalaFloat(agentId: string, month: string, float: number) {
+  const existing = wakalaMonths.find((w) => w.agentId === agentId && w.month === month);
+  if (existing) {
+    wakalaMonths = wakalaMonths.map((w) => (w.id === existing.id ? { ...w, float } : w));
+  } else {
+    wakalaMonths = [
+      ...wakalaMonths,
+      { id: `${agentId}-${month}`, agentId, month, float, commission: 0 },
+    ];
+  }
+  emit();
+}
+
+export function setWakalaCommission(agentId: string, month: string, commission: number) {
+  const existing = wakalaMonths.find((w) => w.agentId === agentId && w.month === month);
+  if (existing) {
+    wakalaMonths = wakalaMonths.map((w) => (w.id === existing.id ? { ...w, commission } : w));
+  } else {
+    wakalaMonths = [
+      ...wakalaMonths,
+      { id: `${agentId}-${month}`, agentId, month, float: 0, commission },
+    ];
+  }
   emit();
 }
