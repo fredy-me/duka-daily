@@ -47,7 +47,7 @@ function ProductsPage() {
               key={p.id}
               to="/admin/bidhaa/$id"
               params={{ id: p.id }}
-              className="tap flex items-center justify-between rounded-[22px] border border-border bg-card p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+              className="tap flex items-center justify-between rounded-[22px] border border-border bg-card p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow,transform] duration-150 hover:border-foreground/20 hover:shadow-[0_5px_14px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
             >
               <div>
                 <p className="text-[18px] font-semibold">{p.name}</p>
