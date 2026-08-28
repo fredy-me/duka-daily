@@ -24,7 +24,7 @@ export function PageHeader({
       {back ? (
         <Link
           to={back}
-          className="mb-3 inline-flex items-center gap-1 text-[15px] text-muted-foreground"
+          className="tap -ml-2 mb-3 inline-flex rounded-xl px-2 text-[15px] text-muted-foreground transition-[background-color,color,transform] duration-150 hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           ← Nyuma
         </Link>
@@ -168,7 +168,7 @@ export function TabBar({ tabs }: { tabs: Tab[] }) {
               <Link
                 to={t.to}
                 className={cn(
-                  "tap flex flex-col items-center justify-center gap-1 py-2 text-[12px] font-medium",
+                  "tap mx-1 flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-[12px] font-medium transition-[background-color,color,transform] duration-150 hover:bg-accent/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]",
                   active ? "text-foreground" : "text-muted-foreground",
                 )}
               >
