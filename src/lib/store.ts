@@ -4,9 +4,11 @@ import {
   stocktaking as initialStocktaking,
   expenses as initialBudget,
   wakalaMonths as initialWakalaMonths,
+  users as initialUsers,
   type Product,
   type StocktakingItem,
   type WakalaMonth,
+  type User,
 } from "./mock";
 
 let products: Product[] = [...initialProducts];
@@ -174,5 +176,39 @@ export function setWakalaCommission(agentId: string, month: string, commission: 
       { id: `${agentId}-${month}`, agentId, month, float: 0, commission },
     ];
   }
+  emit();
+}
+
+let userList: User[] = [...initialUsers];
+
+function getUsersSnapshot(): User[] {
+  return userList;
+}
+
+export function useUsers(): User[] {
+  return useSyncExternalStore(subscribe, getUsersSnapshot, getUsersSnapshot);
+}
+
+export function inviteUser(input: { name: string; phone: string; role: User["role"] }) {
+  userList = [
+    ...userList,
+    {
+      id: `u${Date.now()}`,
+      name: input.name,
+      phone: input.phone,
+      role: input.role,
+      status: "Ametumwa",
+    },
+  ];
+  emit();
+}
+
+export function updateUser(id: string, patch: Partial<Omit<User, "id">>) {
+  userList = userList.map((u) => (u.id === id ? { ...u, ...patch } : u));
+  emit();
+}
+
+export function deleteUser(id: string) {
+  userList = userList.filter((u) => u.id !== id);
   emit();
 }
