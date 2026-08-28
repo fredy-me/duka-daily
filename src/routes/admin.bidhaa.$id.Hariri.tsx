@@ -42,7 +42,11 @@ function EditProductPage() {
   const jumla = idadiNum * beiNum;
 
   const valid =
-    name.trim() !== "" && kipimo !== "" && idadi !== "" && beiYaKununulia !== "" && beiYaKuuza !== "";
+    name.trim() !== "" &&
+    kipimo !== "" &&
+    idadi !== "" &&
+    beiYaKununulia !== "" &&
+    beiYaKuuza !== "";
 
   function goBack() {
     router.navigate({ to: "/admin/bidhaa/$id", params: { id: p.id } });
@@ -153,10 +157,18 @@ function EditProductPage() {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <Button variant="outline" onClick={goBack} className="tap flex-1 rounded-xl text-[17px]">
+            <Button
+              variant="outline"
+              onClick={goBack}
+              className="tap flex-1 rounded-xl text-[17px]"
+            >
               Ghairi
             </Button>
-            <Button onClick={goBack} disabled={!valid} className="tap flex-1 rounded-xl text-[17px]">
+            <Button
+              onClick={goBack}
+              disabled={!valid}
+              className="tap flex-1 rounded-xl text-[17px]"
+            >
               Hifadhi
             </Button>
           </div>
