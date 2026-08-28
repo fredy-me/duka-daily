@@ -17,7 +17,11 @@ export const Route = createFileRoute("/admin/zaidi/makabidhiano")({
 function MakabidhianoPage() {
   return (
     <>
-      <PageHeader title="Makabidhiano" subtitle={`${handovers.length} makabidhiano`} back="/admin/zaidi" />
+      <PageHeader
+        title="Makabidhiano"
+        subtitle={`${handovers.length} makabidhiano`}
+        back="/admin/zaidi"
+      />
 
       <Section>
         <ListCard>
