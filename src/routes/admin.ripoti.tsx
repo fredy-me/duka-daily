@@ -38,8 +38,58 @@ const chartTip = {
   fontSize: 13,
 };
 
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString("sw-TZ", { day: "numeric", month: "short", year: "numeric" });
+
 function Reports() {
   const [range, setRange] = useState("Wiki hii");
+  const [pickOpen, setPickOpen] = useState(false);
+  const [mode, setMode] = useState<"single" | "range">("single");
+  const [day, setDay] = useState<Date | undefined>(undefined);
+  const [rangeDates, setRangeDates] = useState<DateRange | undefined>(undefined);
+
+  function openPicker() {
+    setMode("single");
+    setDay(undefined);
+    setRangeDates(undefined);
+    setPickOpen(true);
+  }
+
+  function apply() {
+    if (mode === "single" && day) {
+      setRange(fmtDate(day));
+    } else if (mode === "range" && rangeDates?.from && rangeDates?.to) {
+      setRange(`${fmtDate(rangeDates.from)} – ${fmtDate(rangeDates.to)}`);
+    }
+    setPickOpen(false);
+  }
+
+  function onRangeSelected(r) {
+    if (r?.from && r?.to && r.from.toDateString() === r.to.toDateString()) {
+      // Single-day range
+      setRangeDates(undefined);
+      setDay(r.from);
+      setMode("single");
+      return;
+    }
+    setRangeDates(r);
+  }
+
+  function RangeButton({ r }: { r: string }) {
+    const isCustom = range === r || (r === "Kipindi Maalum" && pickOpen);
+    return (
+      <button
+        onClick={() => (r === "Kipindi Maalum" ? openPicker() : setRange(r))}
+        className={`tap shrink-0 rounded-full border px-5 text-[15px] font-semibold transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98] ${
+          isCustom
+            ? "border-primary bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.14)]"
+            : "border-border bg-card text-muted-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-accent hover:text-foreground"
+        }`}
+      >
+        {r}
+      </button>
+    );
+  }
 
   return (
     <>
@@ -48,17 +98,7 @@ function Reports() {
       <Section>
         <div className="flex snap-x gap-2 overflow-x-auto pb-1">
           {ranges.map((r) => (
-            <button
-              key={r}
-              onClick={() => setRange(r)}
-              className={`tap shrink-0 rounded-full border px-5 text-[15px] font-semibold transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98] ${
-                range === r
-                  ? "border-primary bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.14)]"
-                  : "border-border bg-card text-muted-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-accent hover:text-foreground"
-              }`}
-            >
-              {r}
-            </button>
+            <RangeButton key={r} r={r} />
           ))}
         </div>
       </Section>
