@@ -3,7 +3,8 @@
 export const SHOP = {
   name: "Duka la Amani",
   address: "Mtaa wa Kariakoo, Dar es Salaam",
-  owner: "Mzee Hamisi",
+  owner: "Dr. Godfrey",
+  phone: "0754 112 233",
 };
 
 export const fmt = (n: number) => `${n.toLocaleString("en-US")} TZS`;
@@ -363,7 +364,7 @@ export const handovers = [
 ];
 
 export const users = [
-  { id: "u1", name: "Mzee Hamisi", phone: "0754 112 233", role: "Admin" },
+  { id: "u1", name: "Dr. Godfrey", phone: "0754 112 233", role: "Admin" },
   { id: "u2", name: "Juma", phone: "0765 445 128", role: "Muuzaji" },
   { id: "u3", name: "Neema", phone: "0712 908 340", role: "Muuzaji" },
 ];
