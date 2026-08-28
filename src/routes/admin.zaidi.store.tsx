@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { Minus, Pencil, Plus, Trash2 } from "lucide-react";
+import { Minus, Pencil, Plus, Trash2, Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,6 +32,7 @@ import {
   adjustStocktaking,
   deleteStocktaking,
 } from "@/lib/store";
+import { reportsPdf } from "@/lib/report";
 
 export const Route = createFileRoute("/admin/zaidi/store")({
   head: () => ({
@@ -106,9 +107,52 @@ function StorePage() {
   const [day, setDay] = useState<Date | undefined>(undefined);
   const [editing, setEditing] = useState<null | { id: string; product: string; qty: string }>(null);
   const [detail, setDetail] = useState<null | (typeof storeHistory)[number]>(null);
+  const [stab, setStab] = useState("stocktaking");
 
   const [from, to] = rangeWindow(range, rangeDates);
   const filtered = stocktaking.filter((s) => inRange(s.date, from, to));
+
+  function downloadPdf() {
+    if (stab === "history") {
+      reportsPdf({
+        title: "Store History — Salio na Kufunga",
+        period: range,
+        columns: [
+          { header: "Mwanzo (Tarehe)", dataKey: "open" },
+          { header: "Mpaka (Tarehe)", dataKey: "close" },
+          { header: "Salio Kufungua", dataKey: "openBalance" },
+          { header: "Salio Kufunga", dataKey: "closeBalance" },
+        ],
+        rows: storeHistory.map((h) => ({
+          open: fmtDay(toDate(h.openDate)),
+          close: fmtDay(toDate(h.closeDate)),
+          openBalance: h.openBalance.toLocaleString("en-US"),
+          closeBalance: h.closeBalance.toLocaleString("en-US"),
+        })),
+        filename: "store-history.pdf",
+      });
+      return;
+    }
+
+    reportsPdf({
+      title: "Stocktaking — Hisa Zilizopo",
+      period: range,
+      columns: [
+        { header: "Bidhaa", dataKey: "product" },
+        { header: "Kiasi", dataKey: "qty" },
+        { header: "Kitengo", dataKey: "unit" },
+        { header: "Tarehe", dataKey: "date" },
+      ],
+      rows: filtered.map((s) => ({
+        product: s.product,
+        qty: s.qty,
+        unit: s.unit,
+        date: fmtDay(toDate(s.date)),
+      })),
+      footers: [{ label: "Idadi ya Rekodi", value: `${filtered.length}` }],
+      filename: `stocktaking-${range.replace(/\s+/g, "-")}.pdf`,
+    });
+  }
 
   function openPicker() {
     setMode("single");
@@ -173,7 +217,18 @@ function StorePage() {
         </div>
       </Section>
 
-      <Section title="Stock">
+      <Section
+        title="Stock"
+        action={
+          <button
+            onClick={downloadPdf}
+            className="tap inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-2 text-[13px] font-semibold text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,transform] duration-150 hover:border-foreground/20 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
+          >
+            <Download className="size-4" strokeWidth={1.75} />
+            Pakua PDF
+          </button>
+        }
+      >
         <div className="flex snap-x gap-2 overflow-x-auto pb-1">
           {ranges.map((r) => (
             <RangeButton key={r} r={r} />
@@ -182,7 +237,7 @@ function StorePage() {
       </Section>
 
       <Section>
-        <Tabs defaultValue="stocktaking">
+        <Tabs value={stab} onValueChange={setStab}>
           <TabsList className="tap h-14 w-full rounded-full bg-muted p-1">
             <TabsTrigger value="stocktaking" className="h-12 flex-1 rounded-full text-[16px]">
               Stocktaking
@@ -202,10 +257,7 @@ function StorePage() {
             ) : (
               <ListCard>
                 {filtered.map((s) => (
-                  <div
-                    key={s.id}
-                    className="border-b border-border px-5 py-4 last:border-0"
-                  >
+                  <div key={s.id} className="border-b border-border px-5 py-4 last:border-0">
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-0 flex-1">
                         <p className="text-[17px] font-medium">{s.product}</p>
@@ -222,7 +274,9 @@ function StorePage() {
                           <Minus className="size-4" strokeWidth={2} />
                         </button>
                         <button
-                          onClick={() => setEditing({ id: s.id, product: s.product, qty: `${s.qty}` })}
+                          onClick={() =>
+                            setEditing({ id: s.id, product: s.product, qty: `${s.qty}` })
+                          }
                           aria-label="Hariri"
                           className="tap flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition hover:bg-accent active:scale-[0.96]"
                         >
@@ -390,7 +444,11 @@ function StorePage() {
             />
           </label>
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setEditing(null)} className="tap flex-1 rounded-xl text-[17px]">
+            <Button
+              variant="outline"
+              onClick={() => setEditing(null)}
+              className="tap flex-1 rounded-xl text-[17px]"
+            >
               Ghairi
             </Button>
             <Button onClick={saveEdit} className="tap flex-1 rounded-xl text-[17px]">
@@ -415,10 +473,10 @@ function StorePage() {
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-[14px] text-muted-foreground">Siku ya Kufungua</p>
-                    <p className="text-[17px] font-semibold">
-                      {fmtDay(toDate(detail.openDate))}
+                    <p className="text-[17px] font-semibold">{fmtDay(toDate(detail.openDate))}</p>
+                    <p className="text-[14px] text-muted-foreground">
+                      {weekdayName(detail.openDate)}
                     </p>
-                    <p className="text-[14px] text-muted-foreground">{weekdayName(detail.openDate)}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[14px] text-muted-foreground">Saa</p>
@@ -428,10 +486,10 @@ function StorePage() {
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-[14px] text-muted-foreground">Siku ya Kufunga</p>
-                    <p className="text-[17px] font-semibold">
-                      {fmtDay(toDate(detail.closeDate))}
+                    <p className="text-[17px] font-semibold">{fmtDay(toDate(detail.closeDate))}</p>
+                    <p className="text-[14px] text-muted-foreground">
+                      {weekdayName(detail.closeDate)}
                     </p>
-                    <p className="text-[14px] text-muted-foreground">{weekdayName(detail.closeDate)}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[14px] text-muted-foreground">Saa</p>
@@ -448,7 +506,11 @@ function StorePage() {
                 </div>
               </Panel>
 
-              <Button variant="outline" onClick={() => setDetail(null)} className="tap flex-1 rounded-xl text-[17px]">
+              <Button
+                variant="outline"
+                onClick={() => setDetail(null)}
+                className="tap flex-1 rounded-xl text-[17px]"
+              >
                 Funga
               </Button>
             </>
