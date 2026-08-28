@@ -11,7 +11,15 @@ import {
   Wrench,
 } from "lucide-react";
 import { PageHeader, Section } from "@/components/duka/shell";
-import { corrections, expenses, expensesTotal, fmt, handovers, users, wakala } from "@/lib/mock";
+import {
+  corrections,
+  expenses,
+  expensesTotal,
+  fmt,
+  handovers,
+  users,
+  wakalaMonthCommission,
+} from "@/lib/mock";
 
 export const Route = createFileRoute("/admin/zaidi/")({
   head: () => ({
@@ -30,7 +38,7 @@ export const Route = createFileRoute("/admin/zaidi/")({
 });
 
 const pending = corrections.filter((c) => c.status === "Inasubiri").length;
-const wakalaTotal = wakala.reduce((a, w) => a + w.commission, 0);
+const wakalaTotal = wakalaMonthCommission;
 
 type MoreItem = {
   to: string;
