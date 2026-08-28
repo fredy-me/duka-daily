@@ -19,7 +19,8 @@ export const Route = createFileRoute("/admin/zaidi")({
       { title: "Zaidi — Duka Langu" },
       {
         name: "description",
-        content: "Bajeti, matumizi, wakala, duka, watumiaji, marekebisho, makabidhiano na mpangilio.",
+        content:
+          "Bajeti, matumizi, wakala, duka, watumiaji, marekebisho, makabidhiano na mpangilio.",
       },
       { property: "og:title", content: "Zaidi — Duka Langu" },
       { property: "og:description", content: "Zana za ziada za usimamizi wa duka." },
@@ -124,10 +125,7 @@ function MorePage() {
                   {item.badge}
                 </span>
               ) : null}
-              <ChevronRight
-                className="size-5 shrink-0 text-muted-foreground"
-                strokeWidth={1.5}
-              />
+              <ChevronRight className="size-5 shrink-0 text-muted-foreground" strokeWidth={1.5} />
             </Link>
           ))}
         </div>
