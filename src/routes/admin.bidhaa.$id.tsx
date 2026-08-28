@@ -12,7 +12,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { PageHeader, Section, Panel, StatCard, Pill } from "@/components/duka/shell";
-import { fmt, products } from "@/lib/mock";
+import { fmt } from "@/lib/mock";
+import { useProducts, deleteProduct } from "@/lib/store";
 
 export const Route = createFileRoute("/admin/bidhaa/$id")({
   head: () => ({
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/admin/bidhaa/$id")({
 function ProductDetail() {
   const { id } = Route.useParams();
   const router = useRouter();
+  const products = useProducts();
   const p = products.find((x) => x.id === id) ?? products[0]!;
 
   const headerAction = (
@@ -71,7 +73,10 @@ function ProductDetail() {
               Ghairi
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => router.navigate({ to: "/admin/bidhaa" })}
+              onClick={() => {
+                deleteProduct(p.id);
+                router.navigate({ to: "/admin/bidhaa" });
+              }}
               className="tap flex-1 rounded-xl border-transparent bg-destructive text-destructive-foreground text-[15px] hover:bg-destructive/90"
             >
               Futa
