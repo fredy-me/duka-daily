@@ -14,11 +14,13 @@ export function PageHeader({
   title,
   subtitle,
   back,
+  params,
   action,
 }: {
   title: string;
   subtitle?: string | undefined;
   back?: string | undefined;
+  params?: Record<string, string> | undefined;
   action?: ReactNode | undefined;
 }) {
   return (
@@ -26,6 +28,7 @@ export function PageHeader({
       {back ? (
         <Link
           to={back}
+          {...(params ? { params } : {})}
           className="tap -ml-2 mb-3 inline-flex rounded-xl px-2 text-[15px] text-muted-foreground transition-[background-color,color,transform] duration-150 hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
         >
           ← Nyuma
