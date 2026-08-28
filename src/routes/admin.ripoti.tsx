@@ -175,7 +175,7 @@ function Reports() {
       </Section>
 
       <Section>
-        <Tabs defaultValue="mauzo">
+        <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="tap h-14 w-full rounded-full bg-muted p-1">
             <TabsTrigger value="mauzo" className="h-12 flex-1 rounded-full text-[16px]">
               Mauzo
