@@ -11,7 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PageHeader, Section } from "@/components/duka/shell";
-import { fmt, products } from "@/lib/mock";
+import { fmt, type Product } from "@/lib/mock";
+import { useProducts, updateProduct } from "@/lib/store";
 
 export const Route = createFileRoute("/admin/bidhaa/$id/Hariri")({
   head: () => ({
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/admin/bidhaa/$id/Hariri")({
 function EditProductPage() {
   const { id } = Route.useParams();
   const router = useRouter();
+  const products = useProducts();
   const p = products.find((x) => x.id === id) ?? products[0]!;
 
   const [name, setName] = useState(p.name);
@@ -50,6 +52,40 @@ function EditProductPage() {
 
   function goBack() {
     router.navigate({ to: "/admin/bidhaa/$id", params: { id: p.id } });
+  }
+
+  function save() {
+    const events: Product["events"] = [...p.events];
+    const today = new Date().toLocaleDateString("sw-TZ", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+
+    if (Number(idadi) > p.stock) {
+      events.push({
+        date: today,
+        type: "nyongeza",
+        note: `Nyongeza ya hisa · +${Number(idadi) - p.stock} ${kipimo}`,
+      });
+    }
+    if (Number(beiYaKuuza) !== p.price) {
+      events.push({
+        date: today,
+        type: "bei",
+        note: `Bei ilibadilika · ${fmt(p.price)} → ${fmt(Number(beiYaKuuza))}`,
+      });
+    }
+
+    updateProduct(id, {
+      name,
+      unit: kipimo,
+      stock: idadiNum,
+      buyPrice: Number(beiYaKununulia),
+      price: Number(beiYaKuuza),
+      events,
+    });
+    goBack();
   }
 
   return (
@@ -164,11 +200,7 @@ function EditProductPage() {
             >
               Ghairi
             </Button>
-            <Button
-              onClick={goBack}
-              disabled={!valid}
-              className="tap flex-1 rounded-xl text-[17px]"
-            >
+            <Button onClick={save} disabled={!valid} className="tap flex-1 rounded-xl text-[17px]">
               Hifadhi
             </Button>
           </div>
