@@ -36,7 +36,7 @@ function buildPdf(opts: {
 
   // Table
   doc.setTextColor(20);
-  autoTable(doc, {
+  const table = autoTable(doc, {
     startY: 48,
     head: [opts.columns.map((c) => c.header)],
     body: opts.rows.map((r) => opts.columns.map((c) => String(r[c.dataKey] ?? ""))),
@@ -46,11 +46,10 @@ function buildPdf(opts: {
     margin: { left: 14, right: 14 },
   });
 
-  let y = (doc as any).lastAutoTable?.finalY ?? 60;
+  let y = (table.finalY ?? 60) + 6;
 
   // Footers
   if (opts.footers) {
-    y += 6;
     for (const f of opts.footers) {
       doc.setFontSize(11);
       doc.setFont("helvetica", "bold");
