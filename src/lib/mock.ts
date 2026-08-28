@@ -373,3 +373,45 @@ export const stockValue = products.reduce((a, p) => a + p.stock * p.buyPrice, 0)
 export const stockCount = products.reduce((a, p) => a + p.stock, 0);
 export const openingBalance = 1240000;
 export const closingEstimate = openingBalance + todayTotal - 41000;
+
+export type StocktakingItem = {
+  id: string;
+  date: string;
+  product: string;
+  qty: number;
+  unit: string;
+};
+
+const isoDay = (offsetDays: number) => {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().slice(0, 10);
+};
+
+export const stocktaking: StocktakingItem[] = [
+  { id: "st1", date: isoDay(0), product: "Sukari TPC 5kg", qty: 150, unit: "pakiti" },
+  { id: "st2", date: isoDay(0), product: "Mchele Mbeya", qty: 200, unit: "kg" },
+  { id: "st3", date: isoDay(-1), product: "Sukari TPC 5kg", qty: 120, unit: "pakiti" },
+  { id: "st4", date: isoDay(-1), product: "Mchele Mbeya", qty: 180, unit: "kg" },
+  { id: "st5", date: isoDay(-1), product: "Unga wa Ngano 2kg", qty: 75, unit: "pakiti" },
+  { id: "st6", date: isoDay(-2), product: "Sukari TPC 5kg", qty: 100, unit: "pakiti" },
+  { id: "st7", date: isoDay(-3), product: "Mchele Mbeya", qty: 160, unit: "kg" },
+  { id: "st8", date: isoDay(-4), product: "Mafuta ya Kupikia 1L", qty: 48, unit: "chupa" },
+  { id: "st9", date: isoDay(-5), product: "Sukari TPC 5kg", qty: 90, unit: "pakiti" },
+];
+
+export type StoreHistoryRecord = {
+  id: string;
+  openDate: string;
+  closeDate: string;
+  openTime: string;
+  closeTime: string;
+  openBalance: number;
+  closeBalance: number;
+};
+
+export const storeHistory: StoreHistoryRecord[] = [
+  { id: "sh1", openDate: isoDay(-3), closeDate: isoDay(-2), openTime: "08:00", closeTime: "18:00", openBalance: 1210000, closeBalance: 1186000 },
+  { id: "sh2", openDate: isoDay(-2), closeDate: isoDay(-1), openTime: "08:00", closeTime: "18:00", openBalance: 1186000, closeBalance: 1240000 },
+  { id: "sh3", openDate: isoDay(-1), closeDate: isoDay(0), openTime: "08:00", closeTime: "18:00", openBalance: 1240000, closeBalance: 1289000 },
+];
