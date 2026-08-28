@@ -54,9 +54,7 @@ function ProductDetail() {
         </AlertDialogTrigger>
         <AlertDialogContent className="w-[min(360px,calc(100vw-40px))] rounded-[22px]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-[18px] font-bold">
-              Futa {p.name}?
-            </AlertDialogTitle>
+            <AlertDialogTitle className="text-[18px] font-bold">Futa {p.name}?</AlertDialogTitle>
             <AlertDialogDescription className="text-[15px]">
               Una uhakika unataka kufuta "{p.name}"? Kitendo hiki hakiwezi kutenduliwa.
             </AlertDialogDescription>
