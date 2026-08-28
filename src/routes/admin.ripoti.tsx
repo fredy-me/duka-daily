@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { PageHeader, Section, Panel, StatCard, ListCard, Row, Pill } from "@/components/duka/shell";
 import { expenses, expensesTotal, fmt, todayTotal, weekTrend } from "@/lib/mock";
 import { useProducts } from "@/lib/store";
+import { reportsPdf } from "@/lib/report";
 
 export const Route = createFileRoute("/admin/ripoti")({
   head: () => ({
@@ -45,10 +47,77 @@ const fmtDate = (d: Date) =>
 function Reports() {
   const products = useProducts();
   const [range, setRange] = useState("Wiki hii");
+  const [tab, setTab] = useState("mauzo");
   const [pickOpen, setPickOpen] = useState(false);
   const [mode, setMode] = useState<"single" | "range">("single");
   const [day, setDay] = useState<Date | undefined>(undefined);
   const [rangeDates, setRangeDates] = useState<DateRange | undefined>(undefined);
+
+  function downloadPdf() {
+    const lowCount = products.filter((p) => p.stock <= p.lowAt).length;
+    const footers: { label: string; value: string }[] = [];
+    let columns: { header: string; dataKey: string }[] = [];
+    let rows: Record<string, string | number>[] = [];
+    let title = "Ripoti ya Mauzo";
+
+    if (tab === "mauzo") {
+      title = "Ripoti ya Mauzo";
+      columns = [
+        { header: "Siku", dataKey: "day" },
+        { header: "Kiasi (TZS)", dataKey: "mauzo" },
+      ];
+      rows = weekTrend.map((d) => ({ day: d.day, mauzo: d.mauzo.toLocaleString("en-US") }));
+      footers.push({ label: "Jumla ya Mauzo (siku 7)", value: fmt(weekTrend.reduce((a, d) => a + d.mauzo, 0)) });
+    } else if (tab === "matumizi") {
+      title = "Ripoti ya Matumizi";
+      columns = [
+        { header: "Maelezo", dataKey: "note" },
+        { header: "Tarehe", dataKey: "date" },
+        { header: "Kiasi (TZS)", dataKey: "amount" },
+      ];
+      rows = expenses.map((e) => ({
+        note: e.note,
+        date: e.date,
+        amount: e.amount.toLocaleString("en-US"),
+      }));
+      footers.push({ label: "Jumla ya Matumizi", value: fmt(expensesTotal) });
+    } else {
+      title = "Ripoti ya Hisa";
+      columns = [
+        { header: "Bidhaa", dataKey: "name" },
+        { header: "Hisa", dataKey: "stock" },
+        { header: "Thamani (TZS)", dataKey: "value" },
+      ];
+      rows = products.map((p) => ({
+        name: p.name,
+        stock: `${p.stock} ${p.unit}`,
+        value: (p.stock * p.buyPrice).toLocaleString("en-US"),
+      }));
+      footers.push(
+        { label: "Idadi ya Bidhaa", value: `${products.length}` },
+        { label: "Bidhaa zenye hisa ndogo", value: `${lowCount}` },
+      );
+    }
+
+    reportsPdf({
+      title,
+      period: range,
+      columns,
+      rows,
+      footers,
+      filename: `ripoti-${tab}-${range.replace(/\s+/g, "-")}.pdf`,
+    });
+  }
+
+  const headerAction = (
+    <button
+      onClick={downloadPdf}
+      className="tap inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2.5 text-[14px] font-semibold text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,transform] duration-150 hover:border-foreground/20 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98]"
+    >
+      <Download className="size-4" strokeWidth={1.75} />
+      Pakua PDF
+    </button>
+  );
 
   function openPicker() {
     setMode("single");
@@ -95,7 +164,7 @@ function Reports() {
 
   return (
     <>
-      <PageHeader title="Ripoti" subtitle={`Kipindi: ${range}`} />
+      <PageHeader title="Ripoti" subtitle={`Kipindi: ${range}`} action={headerAction} />
 
       <Section>
         <div className="flex snap-x gap-2 overflow-x-auto pb-1">
