@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import { Calendar } from "@/components/ui/calendar";
 import { PageHeader, Section, Panel, StatCard, ListCard, Row, Pill } from "@/components/duka/shell";
-import { expenses, expensesTotal, fmt, products, todayTotal, weekTrend } from "@/lib/mock";
+import { expenses, expensesTotal, fmt, todayTotal, weekTrend } from "@/lib/mock";
+import { useProducts } from "@/lib/store";
 
 export const Route = createFileRoute("/admin/ripoti")({
   head: () => ({
@@ -42,6 +43,7 @@ const fmtDate = (d: Date) =>
   d.toLocaleDateString("sw-TZ", { day: "numeric", month: "short", year: "numeric" });
 
 function Reports() {
+  const products = useProducts();
   const [range, setRange] = useState("Wiki hii");
   const [pickOpen, setPickOpen] = useState(false);
   const [mode, setMode] = useState<"single" | "range">("single");
