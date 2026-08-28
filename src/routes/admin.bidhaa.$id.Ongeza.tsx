@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { PageHeader, Section, Panel } from "@/components/duka/shell";
-import { fmt, products } from "@/lib/mock";
+import { fmt } from "@/lib/mock";
+import { useProducts, restockProduct } from "@/lib/store";
 
 export const Route = createFileRoute("/admin/bidhaa/$id/Ongeza")({
   head: () => ({
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/admin/bidhaa/$id/Ongeza")({
 function RestockPage() {
   const { id } = Route.useParams();
   const router = useRouter();
+  const products = useProducts();
   const p = products.find((x) => x.id === id) ?? products[0]!;
 
   const [supplier, setSupplier] = useState("");
@@ -36,6 +38,16 @@ function RestockPage() {
 
   function goBack() {
     router.navigate({ to: "/admin/bidhaa/$id", params: { id: p.id } });
+  }
+
+  function save() {
+    const today = new Date().toLocaleDateString("sw-TZ", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    restockProduct(id, idadiNum, Number(beiYaKununulia), today);
+    goBack();
   }
 
   return (
@@ -128,11 +140,7 @@ function RestockPage() {
             >
               Ghairi
             </Button>
-            <Button
-              onClick={goBack}
-              disabled={!valid}
-              className="tap flex-1 rounded-xl text-[17px]"
-            >
+            <Button onClick={save} disabled={!valid} className="tap flex-1 rounded-xl text-[17px]">
               Hifadhi Nyongeza
             </Button>
           </div>
