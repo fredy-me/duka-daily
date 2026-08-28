@@ -121,6 +121,26 @@ export function deleteBudgetCategory(id: string) {
   emit();
 }
 
+export function useExpenses(): BudgetCategory[] {
+  return useSyncExternalStore(subscribe, getBudgetSnapshot, getBudgetSnapshot);
+}
+
+export function addExpense(input: { date: string; note: string; amount: number; target: number }) {
+  const id = `e${Date.now()}`;
+  budgetCategories = [...budgetCategories, { id, ...input }];
+  emit();
+}
+
+export function updateExpense(id: string, patch: Partial<Omit<BudgetCategory, "id">>) {
+  budgetCategories = budgetCategories.map((e) => (e.id === id ? { ...e, ...patch } : e));
+  emit();
+}
+
+export function deleteExpense(id: string) {
+  budgetCategories = budgetCategories.filter((e) => e.id !== id);
+  emit();
+}
+
 let wakalaMonths: WakalaMonth[] = [...initialWakalaMonths];
 
 function getWakalaSnapshot(): WakalaMonth[] {
