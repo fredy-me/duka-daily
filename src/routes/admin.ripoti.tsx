@@ -67,7 +67,10 @@ function Reports() {
         { header: "Kiasi (TZS)", dataKey: "mauzo" },
       ];
       rows = weekTrend.map((d) => ({ day: d.day, mauzo: d.mauzo.toLocaleString("en-US") }));
-      footers.push({ label: "Jumla ya Mauzo (siku 7)", value: fmt(weekTrend.reduce((a, d) => a + d.mauzo, 0)) });
+      footers.push({
+        label: "Jumla ya Mauzo (siku 7)",
+        value: fmt(weekTrend.reduce((a, d) => a + d.mauzo, 0)),
+      });
     } else if (tab === "matumizi") {
       title = "Ripoti ya Matumizi";
       columns = [
