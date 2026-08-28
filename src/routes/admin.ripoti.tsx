@@ -234,7 +234,7 @@ function Reports() {
       </Section>
 
       <Dialog open={pickOpen} onOpenChange={setPickOpen}>
-        <DialogContent className="max-w-[540px]">
+        <DialogContent className="max-h-[min(720px,calc(100dvh-96px))] w-[min(380px,calc(100vw-40px))] gap-4 overflow-y-auto rounded-[22px] p-6">
           <DialogHeader>
             <DialogTitle className="text-[20px] font-bold">Chagua Kipindi</DialogTitle>
             <DialogDescription className="text-[15px]">
