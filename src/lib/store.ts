@@ -1,5 +1,10 @@
 import { useSyncExternalStore } from "react";
-import { products as initialProducts, type Product } from "./mock";
+import {
+  products as initialProducts,
+  stocktaking as initialStocktaking,
+  type Product,
+  type StocktakingItem,
+} from "./mock";
 
 let products: Product[] = [...initialProducts];
 
@@ -50,5 +55,37 @@ export function deleteProduct(id: string) {
 
 export function addProduct(p: Product) {
   products = [...products, p];
+  emit();
+}
+
+let stocktakingItems: StocktakingItem[] = [...initialStocktaking];
+
+function getStocktakingSnapshot(): StocktakingItem[] {
+  return stocktakingItems;
+}
+
+export function useStocktaking(): StocktakingItem[] {
+  return useSyncExternalStore(subscribe, getStocktakingSnapshot, getStocktakingSnapshot);
+}
+
+export function updateStocktaking(id: string, patch: Partial<StocktakingItem>) {
+  stocktakingItems = stocktakingItems.map((s) => (s.id === id ? { ...s, ...patch } : s));
+  emit();
+}
+
+export function adjustStocktaking(id: string, delta: number) {
+  stocktakingItems = stocktakingItems.map((s) =>
+    s.id === id ? { ...s, qty: Math.max(0, s.qty + delta) } : s,
+  );
+  emit();
+}
+
+export function deleteStocktaking(id: string) {
+  stocktakingItems = stocktakingItems.filter((s) => s.id !== id);
+  emit();
+}
+
+export function addStocktaking(s: StocktakingItem) {
+  stocktakingItems = [...stocktakingItems, s];
   emit();
 }
