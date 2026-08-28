@@ -17,7 +17,11 @@ export const Route = createFileRoute("/admin/zaidi/matumizi")({
 function MatumiziPage() {
   return (
     <>
-      <PageHeader title="Matumizi" subtitle={`${expenses.length} rekodi za matumizi`} back="/admin/zaidi" />
+      <PageHeader
+        title="Matumizi"
+        subtitle={`${expenses.length} rekodi za matumizi`}
+        back="/admin/zaidi"
+      />
 
       <Section>
         <div className="grid grid-cols-2 gap-4">
