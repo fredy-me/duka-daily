@@ -32,10 +32,10 @@ function MySales() {
             <button
               key={r}
               onClick={() => setRange(r)}
-              className={`tap flex-1 rounded-full border px-5 py-2 text-[16px] font-medium ${
+              className={`tap flex-1 rounded-full border px-5 py-2 text-[16px] font-semibold transition-[background-color,border-color,box-shadow,transform] duration-150 hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.98] ${
                 range === r
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-muted-foreground"
+                  ? "border-primary bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.14)]"
+                  : "border-border bg-card text-muted-foreground shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-accent hover:text-foreground"
               }`}
             >
               {r}
