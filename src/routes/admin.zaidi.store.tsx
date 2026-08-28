@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Store } from "lucide-react";
-import { PageHeader, Section, ListCard, Row, StatCard } from "@/components/duka/shell";
-import { fmt, SHOP, stockCount, stockValue } from "@/lib/mock";
+import { PageHeader, Section, StatCard } from "@/components/duka/shell";
+import { fmt, stockCount, stockValue } from "@/lib/mock";
 
 export const Route = createFileRoute("/admin/zaidi/store")({
   head: () => ({
@@ -18,40 +17,13 @@ export const Route = createFileRoute("/admin/zaidi/store")({
 function StorePage() {
   return (
     <>
-      <PageHeader title="Store" subtitle="Taarifa za duka" back="/admin/zaidi" />
-
-      <Section>
-        <div className="flex flex-col items-center rounded-[22px] border border-border bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-          <div className="flex size-16 items-center justify-center rounded-full border border-border bg-muted">
-            <Store className="size-8 text-foreground" strokeWidth={1.5} />
-          </div>
-          <p className="mt-3 text-[22px] font-bold tracking-tight">{SHOP.name}</p>
-          <p className="text-[15px] text-muted-foreground">{SHOP.address}</p>
-        </div>
-      </Section>
+      <PageHeader title="Store" subtitle="Ni kiasi gani kinapatikana leo" back="/admin/zaidi" />
 
       <Section>
         <div className="grid grid-cols-2 gap-4">
-          <StatCard label="Bidhaa Zote" value={`${stockCount}`} />
+          <StatCard label="Bidhaa Zilizopo Leo" value={`${stockCount}`} />
           <StatCard label="Thamani ya Hisa" value={fmt(stockValue)} accent />
         </div>
-      </Section>
-
-      <Section title="Taarifa za Duka">
-        <ListCard>
-          <Row>
-            <p className="text-[17px]">Mmiliki</p>
-            <p className="text-[17px] font-semibold">{SHOP.owner}</p>
-          </Row>
-          <Row>
-            <p className="text-[17px]">Simu</p>
-            <p className="text-[17px] font-semibold">{SHOP.phone}</p>
-          </Row>
-          <Row>
-            <p className="text-[17px]">Anwani</p>
-            <p className="text-[17px] font-semibold">{SHOP.address}</p>
-          </Row>
-        </ListCard>
       </Section>
     </>
   );
