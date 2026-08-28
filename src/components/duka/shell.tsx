@@ -14,10 +14,12 @@ export function PageHeader({
   title,
   subtitle,
   back,
+  action,
 }: {
   title: string;
   subtitle?: string | undefined;
   back?: string | undefined;
+  action?: ReactNode | undefined;
 }) {
   return (
     <header className="sticky top-0 z-20 bg-background/90 px-5 pt-6 pb-4 backdrop-blur-md">
@@ -29,8 +31,13 @@ export function PageHeader({
           ← Nyuma
         </Link>
       ) : null}
-      <h1 className="text-[30px] leading-tight font-bold tracking-tight">{title}</h1>
-      {subtitle ? <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p> : null}
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="text-[30px] leading-tight font-bold tracking-tight">{title}</h1>
+          {subtitle ? <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p> : null}
+        </div>
+        {action ? <div className="flex shrink-0 items-center gap-2 pt-1">{action}</div> : null}
+      </div>
     </header>
   );
 }
