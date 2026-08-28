@@ -296,9 +296,7 @@ function Reports() {
             </Button>
             <Button
               onClick={apply}
-              disabled={
-                mode === "single" ? !day : !(rangeDates?.from && rangeDates?.to)
-              }
+              disabled={mode === "single" ? !day : !(rangeDates?.from && rangeDates?.to)}
               className="tap flex-1 rounded-xl text-[17px]"
             >
               Tumia
