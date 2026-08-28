@@ -1,17 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Line, LineChart, ResponsiveContainer, XAxis, Tooltip } from "recharts";
 import { PageHeader, Section, StatCard, ListCard, Row, Panel } from "@/components/duka/shell";
-import {
-  fmt,
-  openingBalance,
-  stockCount,
-  stockValue,
-  todayTotal,
-  closingEstimate,
-  todaySales,
-  saleTotal,
-  weekTrend,
-} from "@/lib/mock";
+import { fmt, todaySales, saleTotal, weekTrend } from "@/lib/mock";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -28,29 +18,37 @@ export const Route = createFileRoute("/admin/")({
   component: Dashboard,
 });
 
+const fmtDayDate = (d: Date) =>
+  d.toLocaleDateString("sw-TZ", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
 function Dashboard() {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
   return (
     <>
       <PageHeader title="Mwanzo" subtitle="Alhamisi, 27 Agosti 2026" />
 
       <Section>
         <div className="grid grid-cols-2 gap-4">
-          <StatCard label="Salio la Kuanza" value={fmt(openingBalance)} />
           <StatCard
-            label="Jumla ya Bidhaa Zilizopo"
-            value={`${stockCount}`}
-            hint={fmt(stockValue)}
+            label="Salio la Kufunga Jana"
+            value={fmt(200000)}
+            hint={fmtDayDate(yesterday)}
           />
+          <StatCard label="Salio la Kufungua Leo" value={fmt(200000)} hint={fmtDayDate(today)} />
+          <StatCard label="Jumla ya Bidhaa Zilizopo" value="217" hint={fmt(2500500)} />
           <StatCard
-            label="Mauzo ya Leo"
-            value={fmt(todayTotal)}
-            hint={`${todaySales.length} mauzo`}
-          />
-          <StatCard
-            label="Salio la Kufunga linalotarajiwa"
-            value={fmt(closingEstimate)}
+            label="Bidhaa zilizo kwenye hatari ya kuisha"
+            value="34"
             accent
-            hint="Makadirio"
+            hint="Hisa ndogo"
           />
         </div>
       </Section>
