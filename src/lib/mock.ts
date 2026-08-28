@@ -249,14 +249,16 @@ export const purchases = [
 ];
 
 export const expenses = [
-  { id: "e1", date: "26 Ago 2026", note: "Umeme (LUKU)", amount: 20000 },
-  { id: "e2", date: "24 Ago 2026", note: "Usafiri wa mizigo", amount: 15000 },
-  { id: "e3", date: "20 Ago 2026", note: "Kodi ya duka", amount: 150000 },
-  { id: "e4", date: "15 Ago 2026", note: "Mifuko ya karatasi", amount: 8000 },
-  { id: "e5", date: "08 Ago 2026", note: "Maji", amount: 6000 },
+  { id: "e1", date: "26 Ago 2026", note: "Umeme (LUKU)", amount: 20000, target: 25000 },
+  { id: "e2", date: "24 Ago 2026", note: "Usafiri wa mizigo", amount: 15000, target: 18000 },
+  { id: "e3", date: "20 Ago 2026", note: "Kodi ya duka", amount: 150000, target: 160000 },
+  { id: "e4", date: "15 Ago 2026", note: "Mifuko ya karatasi", amount: 8000, target: 10000 },
+  { id: "e5", date: "08 Ago 2026", note: "Maji", amount: 6000, target: 8000 },
 ];
 
 export const expensesTotal = expenses.reduce((a, e) => a + e.amount, 0);
+export const budgetTotal = expenses.reduce((a, e) => a + e.target, 0);
+export const budgetRemaining = budgetTotal - expensesTotal;
 export const monthIncome = 2860000;
 export const monthProfit = 742000;
 
@@ -411,7 +413,31 @@ export type StoreHistoryRecord = {
 };
 
 export const storeHistory: StoreHistoryRecord[] = [
-  { id: "sh1", openDate: isoDay(-3), closeDate: isoDay(-2), openTime: "08:00", closeTime: "18:00", openBalance: 1210000, closeBalance: 1186000 },
-  { id: "sh2", openDate: isoDay(-2), closeDate: isoDay(-1), openTime: "08:00", closeTime: "18:00", openBalance: 1186000, closeBalance: 1240000 },
-  { id: "sh3", openDate: isoDay(-1), closeDate: isoDay(0), openTime: "08:00", closeTime: "18:00", openBalance: 1240000, closeBalance: 1289000 },
+  {
+    id: "sh1",
+    openDate: isoDay(-3),
+    closeDate: isoDay(-2),
+    openTime: "08:00",
+    closeTime: "18:00",
+    openBalance: 1210000,
+    closeBalance: 1186000,
+  },
+  {
+    id: "sh2",
+    openDate: isoDay(-2),
+    closeDate: isoDay(-1),
+    openTime: "08:00",
+    closeTime: "18:00",
+    openBalance: 1186000,
+    closeBalance: 1240000,
+  },
+  {
+    id: "sh3",
+    openDate: isoDay(-1),
+    closeDate: isoDay(0),
+    openTime: "08:00",
+    closeTime: "18:00",
+    openBalance: 1240000,
+    closeBalance: 1289000,
+  },
 ];
