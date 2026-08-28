@@ -137,8 +137,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100dvh;
   min-height: 100dvh;
   padding: 24px;
+  overflow: hidden;
   background-color: #ececec;
   background-image:
     radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.6), transparent 40%),
@@ -162,12 +164,20 @@
 
 .duka-screen {
   position: relative;
+  min-height: 0;
   flex: 0 1 auto;
-  height: auto;
-  max-height: calc(100dvh - 68px);
-  padding-top: 30px;
+  /* Definite height: longer phone (min 760px), capped so it never overflows
+     the viewport. A definite height also lets the app's flex column fill it,
+     keeping the bottom tab bar pinned correctly at the bottom of the frame. */
+  height: min(760px, calc(100dvh - 68px));
+  /* Clear the punch-hole notch: notch spans to 56px from the bezel top, and
+     the screen starts 10px in (bezel padding), so content begins at 46px. */
+  padding-top: 46px;
   overflow-y: auto;
   overflow-x: hidden;
+  /* Reserve a consistent right gutter on every page (whether it scrolls or
+     not) so the right padding never shifts when a scrollbar would appear. */
+  scrollbar-gutter: stable;
   border-radius: 40px;
   background-color: var(--color-background);
   /* Optional hidden scrollbar for a clean handset look */
@@ -200,8 +210,10 @@
 @media (pointer: coarse) and (max-width: 767px) {
   .duka-device-backdrop {
     display: block;
+    height: 100dvh;
     padding: 0;
     min-height: 100dvh;
+    overflow: hidden;
     background: var(--color-background);
   }
 
