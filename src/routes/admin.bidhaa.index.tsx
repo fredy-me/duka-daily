@@ -113,10 +113,12 @@ function ProductsPage() {
 
       <button
         onClick={() => setOpen(true)}
-        className="tap fixed right-6 bottom-24 z-40 flex size-14 items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-[box-shadow,transform] duration-150 hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] active:scale-95"
+        className="tap absolute right-6 bottom-24 z-40 flex size-14 items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-[box-shadow,transform] duration-150 hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] active:scale-95"
       >
         <Plus className="size-6" strokeWidth={2.5} />
       </button>
+
+      <div id="dialog-portal" className="relative z-40" style={{ height: 0 }} />
 
       <Dialog
         open={open}
@@ -125,7 +127,10 @@ function ProductsPage() {
           if (!v) resetForm();
         }}
       >
-        <DialogContent className="gap-0 p-0 sm:max-w-lg">
+        <DialogContent
+          container={document.getElementById("dialog-portal")}
+          className="gap-0 p-0 sm:max-w-lg"
+        >
           <DialogHeader className="border-b border-border px-6 pt-6 pb-4">
             <DialogTitle className="text-[20px] font-bold">Ongeza Bidhaa Mpya</DialogTitle>
             <DialogDescription className="text-[15px]">
@@ -247,7 +252,10 @@ function ProductsPage() {
                 Ghairi
               </Button>
             </DialogClose>
-            <Button className="tap flex-1 rounded-xl text-[17px]" disabled={!name || !kipimo || !idadi || !beiYaKununulia || !beiYaKuuza}>
+            <Button
+              className="tap flex-1 rounded-xl text-[17px]"
+              disabled={!name || !kipimo || !idadi || !beiYaKununulia || !beiYaKuuza}
+            >
               Usajili
             </Button>
           </div>
