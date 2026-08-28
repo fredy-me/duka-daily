@@ -25,11 +25,7 @@ function MarekebishoPage() {
 
   return (
     <>
-      <PageHeader
-        title="Marekebisho"
-        subtitle={`${pending} yanasubiri`}
-        back="/admin/zaidi"
-      />
+      <PageHeader title="Marekebisho" subtitle={`${pending} yanasubiri`} back="/admin/zaidi" />
 
       <Section>
         <ListCard>
