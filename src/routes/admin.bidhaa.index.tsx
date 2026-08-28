@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { PageHeader, Section, Pill } from "@/components/duka/shell";
-import { fmt, products } from "@/lib/mock";
+import { fmt } from "@/lib/mock";
+import { useProducts } from "@/lib/store";
 
 export const Route = createFileRoute("/admin/bidhaa/")({
   head: () => ({
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/admin/bidhaa/")({
 
 function ProductsPage() {
   const [q, setQ] = useState("");
+  const products = useProducts();
   const list = products.filter((p) => p.name.toLowerCase().includes(q.toLowerCase()));
 
   return (
