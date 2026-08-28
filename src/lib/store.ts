@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import {
   products as initialProducts,
   stocktaking as initialStocktaking,
+  expenses as initialBudget,
   type Product,
   type StocktakingItem,
 } from "./mock";
@@ -87,5 +88,33 @@ export function deleteStocktaking(id: string) {
 
 export function addStocktaking(s: StocktakingItem) {
   stocktakingItems = [...stocktakingItems, s];
+  emit();
+}
+
+export type BudgetCategory = {
+  id: string;
+  date: string;
+  note: string;
+  amount: number;
+  target: number;
+};
+
+let budgetCategories: BudgetCategory[] = [...initialBudget];
+
+function getBudgetSnapshot(): BudgetCategory[] {
+  return budgetCategories;
+}
+
+export function useBudget(): BudgetCategory[] {
+  return useSyncExternalStore(subscribe, getBudgetSnapshot, getBudgetSnapshot);
+}
+
+export function updateBudgetCategory(id: string, patch: Partial<BudgetCategory>) {
+  budgetCategories = budgetCategories.map((b) => (b.id === id ? { ...b, ...patch } : b));
+  emit();
+}
+
+export function deleteBudgetCategory(id: string) {
+  budgetCategories = budgetCategories.filter((b) => b.id !== id);
   emit();
 }
