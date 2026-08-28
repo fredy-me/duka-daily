@@ -64,7 +64,7 @@ function Reports() {
     setPickOpen(false);
   }
 
-  function onRangeSelected(r) {
+  function onRangeSelected(r: DateRange | undefined) {
     if (r?.from && r?.to && r.from.toDateString() === r.to.toDateString()) {
       // Single-day range
       setRangeDates(undefined);
