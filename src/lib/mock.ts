@@ -262,48 +262,49 @@ export const budgetRemaining = budgetTotal - expensesTotal;
 export const monthIncome = 2860000;
 export const monthProfit = 742000;
 
-export const wakala = [
-  {
-    id: "mpesa",
-    name: "M-Pesa",
-    commission: 84500,
-    entries: [
-      { date: "26 Ago 2026", amount: 4200 },
-      { date: "24 Ago 2026", amount: 6800 },
-      { date: "21 Ago 2026", amount: 3100 },
-      { date: "18 Ago 2026", amount: 9500 },
-    ],
-  },
-  {
-    id: "tigo",
-    name: "Tigo Pesa",
-    commission: 52300,
-    entries: [
-      { date: "25 Ago 2026", amount: 3400 },
-      { date: "22 Ago 2026", amount: 2800 },
-      { date: "17 Ago 2026", amount: 5200 },
-    ],
-  },
-  {
-    id: "airtel",
-    name: "Airtel Money",
-    commission: 38900,
-    entries: [
-      { date: "26 Ago 2026", amount: 2100 },
-      { date: "20 Ago 2026", amount: 4600 },
-      { date: "12 Ago 2026", amount: 3300 },
-    ],
-  },
-  {
-    id: "halopesa",
-    name: "Halopesa",
-    commission: 16400,
-    entries: [
-      { date: "23 Ago 2026", amount: 1900 },
-      { date: "14 Ago 2026", amount: 2400 },
-    ],
-  },
+export type WakalaAgent = {
+  id: string;
+  name: string;
+};
+
+export const wakalaAgents: WakalaAgent[] = [
+  { id: "mpesa", name: "M-Pesa" },
+  { id: "tigo", name: "Tigo Pesa" },
+  { id: "airtel", name: "Airtel Money" },
+  { id: "halopesa", name: "Halopesa" },
 ];
+
+export type WakalaMonth = {
+  id: string;
+  agentId: string;
+  month: string;
+  float: number;
+  commission: number;
+};
+
+export const currentMonth = "Ago 2026";
+
+export const wakalaMonths: WakalaMonth[] = [
+  // Mwezi huu (Ago 2026)
+  { id: "wm-m1", agentId: "mpesa", month: "Ago 2026", float: 1500000, commission: 84500 },
+  { id: "wm-t1", agentId: "tigo", month: "Ago 2026", float: 900000, commission: 52300 },
+  { id: "wm-a1", agentId: "airtel", month: "Ago 2026", float: 700000, commission: 38900 },
+  { id: "wm-h1", agentId: "halopesa", month: "Ago 2026", float: 400000, commission: 16400 },
+  // Julai 2026
+  { id: "wm-m2", agentId: "mpesa", month: "Jul 2026", float: 1400000, commission: 78900 },
+  { id: "wm-t2", agentId: "tigo", month: "Jul 2026", float: 850000, commission: 46100 },
+  { id: "wm-a2", agentId: "airtel", month: "Jul 2026", float: 650000, commission: 35200 },
+  { id: "wm-h2", agentId: "halopesa", month: "Jul 2026", float: 350000, commission: 14200 },
+  // Juni 2026
+  { id: "wm-m3", agentId: "mpesa", month: "Jun 2026", float: 1300000, commission: 71200 },
+  { id: "wm-t3", agentId: "tigo", month: "Jun 2026", float: 800000, commission: 42800 },
+  { id: "wm-a3", agentId: "airtel", month: "Jun 2026", float: 600000, commission: 31100 },
+  { id: "wm-h3", agentId: "halopesa", month: "Jun 2026", float: 300000, commission: 12800 },
+];
+
+export const wakalaMonthCommission = wakalaMonths
+  .filter((w) => w.month === currentMonth)
+  .reduce((a, w) => a + w.commission, 0);
 
 export const corrections = [
   {
