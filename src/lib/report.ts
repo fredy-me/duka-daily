@@ -36,7 +36,7 @@ function buildPdf(opts: {
 
   // Table
   doc.setTextColor(20);
-  const table = autoTable(doc, {
+  autoTable(doc, {
     startY: 48,
     head: [opts.columns.map((c) => c.header)],
     body: opts.rows.map((r) => opts.columns.map((c) => String(r[c.dataKey] ?? ""))),
@@ -46,7 +46,9 @@ function buildPdf(opts: {
     margin: { left: 14, right: 14 },
   });
 
-  let y = (table.finalY ?? 60) + 6;
+  type WithAutoTable = jsPDF & { lastAutoTable?: { finalY?: number } };
+  const docWithTable = doc as WithAutoTable;
+  let y = (docWithTable.lastAutoTable?.finalY ?? 60) + 6;
 
   // Footers
   if (opts.footers) {
